@@ -1,0 +1,86 @@
+22 March 1999: New c-coded files are now available
+24 March 1999: Fixed sin scaling in spinv.c
+25 March 1999: Fixed underflow problem in ordblk (ulib.c), fixed 
+               potential problem with reading option lines in calfit,
+               fixed DIAG=2 bug in spinv. 
+22 April 1999: Fixed bug in Itot option in spinv.c when more than 2 spins.
+25 May 1999:   Fixed bug in calfit involving blends when there are bad quanta 
+               in .lin files; fixed bug in spinv that appears when largest
+               number of spins is not the default; added feature to calculate
+               partition funtion in calcat for temperature specified in line
+               2 of .int file.
+23 July 1999:  Fixed bug in spinv.c that caused IQNFMT to have wrong 10's digit
+               when F was half integer
+7 Sept. 1999:  Fixed bug in spinv.c that caused crash for large spin sets
+13 Sept. 2000: Many small revisions including:
+               (1) negate Hamiltonian for kappa > 0 on first pass to improve
+               logic for oblate case, (2) make separate ORDHAM and FIXHAM,
+               (3) subtract constant from energy for more precision, 
+               (4) special code for unit matrix, (5) fix up phase for 
+               cross-multiplet interaction, (6) efficiency improvement for
+               3J, 6J, and 9J routines, (7) eliminate use of .unf file,
+               (8) size check on correlation matrix elements in 
+               .par and .var files.
+ 9 Oct.  2000: Changed definiton of dipole type = 10 (see spinv.html)
+13 June  2001: Include sort of .cat file at the end of spcat and dpcat
+ 7 July  2001: Fix bug for multiple l doubled states
+26 Sept. 2001: Fix bug for oblate interactions of type 6x and 2x
+               Split readqn and pcard from ulib and improve code.
+10 Dec.  2003: Augmentation for n-fold symmetric tops with n = 2,3,4,5,6
+               Improved portability with changes proposed by splint.
+10 Mar.  2004: New code for resolved hyperfien for n-fold symmetric tops
+               using Itot basis for a single set of n-equivalent spins.
+24 May   2004: Fix bugs for v > 99, use BCD internally for parameter and dipole
+               identifiers
+20 July  2004: internal BCD modification had bugs for SPFIT for dipoles with
+               SI1 or TYP fields in IDIP not zero.
+21 July  2004: fixed bug in SPFIT/SPCAT that affected default VSYM
+24 Aug.  2004: format of frequency field in .cat field is now expandable in 
+               spcat, dpcat, and calmrg to accomodate IR frequencies in MHz
+30 Dec.  2004: expanded Euler operators
+29 May   2005: fixed bug in operators connecting l=0 to l-doubled states.
+               fixed minor memory leak for DIAG=1 cases.
+31 May   2005: fixed bug so idpar field in par file can be followed by decimal 
+               point to retain compatibility with older files
+ 8 July  2005: dpfit had bug when speciying parameter 27, code and doc fixed
+ 9 July  2005: changed centrifugal distortion parameters for hyperfine and
+               quadrupole. Earlier versions had bug that suppressed applying 
+               centrifugal distortion to Delta J ne 0 matrix elements.
+28 Sept. 2005: fixed a bug in SPFIT/SPCAT for Itot basis for matrix elements
+               with Delta Itot odd.
+               The signs for some off-diagonal elements have the wrong sign.
+27 Oct.  2005: fixed minor bugs in magnetic dipole intensities. fixed bug in dipole
+               TYP = 8 and 12 that produced dipole with wrong symmetry except for 
+               l-doubled states.
+23 Dec.  2005: fixed bugs in Itot basis for l-doubled states. several poorly
+               debugged versions were put on the web prematurely in November and
+               December. 
+ 3 Jan.  2006: new expanded options for fitting blended lines that allows fitting 
+               the rms frequency separation as well as the average frequency. See
+               spinv.pdf documentation.
+16 Jan.  2006: fixed bug in intensity calculation that resulted in improper check
+               of statistical weights. fixed bug in quantum format field  
+26 Jan.  2006: fixed sign error for dipoles
+11 Feb.  2006: Fixed bug that made some derivatives a factor of 2 too large. Impact
+               on fitting and estimated uncertainties.
+ 9 May   2006: Extended definition of EWT1 for l-doubling situations
+11 May   2006: Fixed bug concerning nvib > 99 and in special cases nvib > 9.
+26 May   2006: Fixed least square fit for rank-decicient problem, i.e. specify
+               the same parameter twice. Fixed case of I = 0, Itot = 0.
+22 June  2006: Fixed bugs in calmrg that produced incorrect .bad file
+15 July  2006: Fixed bug in diagonalizer when of row of off-diagonal elements was zero
+18 July  2006: Fixed bug in spfit that first parameter had wrong step for fit
+17 Aug.  2006: Improve checking of spin weights in spinv
+16 Oct.  2006: Increase options for phases between Wang states.  New option for
+               specifing Lz operator explicitly.
+22 Mar.  2007: Improvements for handling internal rotation.  Update documentation.
+1 June   2007: Gup MSB can be a character in cat and mrg files (gup is < 3600)
+ 4 June  2007: Fix bug in calmrg when merging two unequal lines
+ 9 June  2007: Fix bug in SPCAT with IDIAG = 0, no egenvector transformation of S
+11 July  2007: Fix bug that rejected Euler denominator parameters
+12 July  2007: Fix bug that rejected parameters for Itot basis 3-fold sym rotors
+19 July  2007: Enhancement of DPFIT and SPFIT .par file in line 2 FACT field, a negative value
+               makes parameter errors follow convention.
+24 July  2007: Improved diagnostic messages when parameter or dipole is rejected
+ 6 Nov.  2007: Fixed bug that did not include Itot = 0 lines in .cat files and .str files
+ 6 NOv.  2007: Fixed bug in ORDBLK(in ulib.c) that caused bad quanta for coupled N = 0 states

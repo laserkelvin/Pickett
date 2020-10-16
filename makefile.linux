@@ -1,0 +1,60 @@
+CC=gcc
+FC=g77
+FFLAGS=-O3 -Wall
+# -fno-underscoring
+# -ffast-math 
+
+#CFLAGS=-g -Wall
+CFLAGS=-O3 -Wall
+
+#INSTALL = /opt/picket/bin
+INSTALL = /usr/local/bin
+
+EXEQ = spfit spcat calmrg dpfit dpcat
+EXEA = ${EXEQ} stark sortn iamcalc moiam termval
+
+PRGS = spfit cnvwn stark calbak
+# spfit spcat calmrg dpfit dpcat sortn
+#  cnvwn stark calbak
+
+#default: ${EXEQ} 
+default: all
+
+all: $(PRGS)
+#all: ${EXEA}
+
+
+#install:  
+#	-mv ${EXEA} $(INSTALL)
+#	-chmod o+rx /usr/local/bin/*  
+install:
+	cp $(PRGS) $(INSTALL)
+
+clean:
+	rm -f $(PRGS) *.o *~ splib.a a.out
+
+cnvwn: cnvwn.o slib.o
+	g77 -o $@ slib.o cnvwn.o
+
+spfit: calfit.o subfit.o spinv.o splib.a;
+	g77 -o $@ $^ -lm
+
+stark: stark.o splib.a
+	g77 -o $@ stark.o splib.a
+
+calbak: calbak.f
+	g77 -o $@ $^
+
+cnvwn.o: cnvwn.f
+	g77 -c cnvwn.f
+
+slib.o: slib.for
+	g77 -c slib.for
+
+splib.a: splib.a(blas.o) splib.a(ulib.o) splib.a(cnjj.o) splib.a(slib.o)\
+         splib.a(catlist.o) ; ranlib splib.a
+splib.a(blas.o):blas.o; ar r splib.a blas.o 
+splib.a(ulib.o):ulib.o; ar r splib.a ulib.o
+splib.a(cnjj.o):cnjj.o; ar r splib.a cnjj.o
+splib.a(slib.o):slib.o; ar r splib.a slib.o
+splib.a(catlist.o):catlist.o; ar r splib.a catlist.o
