@@ -15,6 +15,8 @@
 /*   HMP, sort cat file at end                                         */
 /*   18 Aug.  2003: code cleanup, @comment@ is for splint              */ 
 /*   19 July  2004: bug fix for multiple dipoles                       */
+/*   16 October 2020: modifications by KLKL to calculate more          */
+/*                    temperatures for partition functions             */
 
 /* THIS IS A GENERALIZED INTENSITY AND FREQUENCY CALCULATOR            */
 
@@ -50,13 +52,13 @@ SBLK *sblk_alloc(const int nstruct, const unsigned mxdm);
 int main(int argc, char* argv[])
 {
 #define NFILE 6
-#define NTEMP 8
+/* This should be modified to extend the range */
+#define NTEMP 1001
+#define TMAX 1000
 #define NCARD 130
 #define NDVEC 10
  /* Initialized data */
-  static double temp[8] =
-    { 300., 225., 150., 75., 37.5, 18.75, 9.375, 300. };
-  static double qsum[8] = { 0., 0., 0., 0., 0., 0., 0., 0. };
+  static double temp[NTEMP], qsum[NTEMP];
   static const char *ext[NFILE] =
     { "int", "var", "out", "cat", "str", "egy" };
   enum efile {eint, evar, eout, ecat, estr, eegy};
@@ -143,6 +145,11 @@ int main(int argc, char* argv[])
   tmq = dvec[8];
   maxv = (int) dvec[9];
   ntemp = NTEMP;
+  /* generate a linearly spaced temperature array from the
+   * TMAX value to 1 K */
+  for (i = 0; i < NTEMP; i++) {
+    temp[i] = (double)(1000 - TMAX);
+  }
   for (k = NTEMP - 2; k >= 0; --k) {
     if (fabs(tmq - temp[k]) < 0.01) {
       --ntemp;
