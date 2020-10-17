@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
   /* generate a linearly spaced temperature array from the
    * TMAX value to 1 K */
   for (i = 0; i < NTEMP; i++) {
-    temp[i] = (double)(1000 - TMAX);
+    temp[i] = (double)(TMAX - i);
   }
   for (k = NTEMP - 2; k >= 0; --k) {
     if (fabs(tmq - temp[k]) < 0.01) {
